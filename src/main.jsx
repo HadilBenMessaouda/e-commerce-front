@@ -9,6 +9,7 @@ import { createRoot } from 'react-dom/client';
 // Create a client
 const queryClient = new QueryClient();
 
+
 // Wrap your app in QueryClientProvider and pass the client to it
 createRoot(document.getElementById('root')).render(
   <QueryClientProvider client={queryClient}>
