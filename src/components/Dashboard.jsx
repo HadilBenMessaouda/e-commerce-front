@@ -1,5 +1,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import image from '../assets/image.png';
+
 
 const user = {
   name: 'Tom Cook',
@@ -38,14 +40,14 @@ export default function Dashboard() {
       */}
 
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-pink-800">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <img
                     alt="Your Company"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={image}
                     className="h-8 w-8"
                   />
                 </div>

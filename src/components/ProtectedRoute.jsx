@@ -1,9 +1,9 @@
-// import React from 'react';
+
 import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getCurrentUser } from '../services/authService';
 
-function ProtectedRoute({ component: Component }) {
+function ProtectedRoute({ element }) {
     const user = getCurrentUser();
     const location = useLocation();
 
@@ -11,11 +11,11 @@ function ProtectedRoute({ component: Component }) {
         return <Navigate to="/signin" state={{ from: location }} replace />;
     }
 
-    return <Component />;
+    return element;
 }
 
 ProtectedRoute.propTypes = {
-    component: PropTypes.elementType.isRequired,
+    element: PropTypes.element.isRequired,
 };
 
 export default ProtectedRoute;

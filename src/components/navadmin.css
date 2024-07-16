@@ -1,0 +1,12 @@
+.all{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+  
