@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-const apiUrl = 'http://localhost:8090/api/auth'; // Your backend API URL
+const apiUrl = 'http://localhost:8090/api/auth'; 
 
 export async function signIn(username, password) {
     try {
@@ -15,10 +15,13 @@ export async function signIn(username, password) {
             throw new Error('Failed to sign in');
         }
         const data = await response.json();
-        localStorage.setItem('token', data.token);
+        console.log('Received data:', data); // Log the entire data object to inspect its structure
+        localStorage.setItem('token', data.accessToken); // Store the access token
+        localStorage.setItem('refreshToken', data.refreshToken); // Store the refresh token
+        return data; // Return the entire data object received from the server
     } catch (error) {
         console.error('Sign in error:', error);
-        throw error; // Propagate the error for handling in the UI or calling code
+        throw error;
     }
 }
 
@@ -29,56 +32,41 @@ export async function signUp(username, email, password) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password}),
-
+            body: JSON.stringify({ username, email, password }),
         });
-        console.log(username,email,password,'aaaaaaaaaaaaaaaaaaaaaaa');
         if (!response.ok) {
             throw new Error('Failed to sign up');
-
         }
-        console.log(username,email,password,'aaaaaaaaaaaaaaaaaaaaaaa');
-
         const data = await response.json();
-        return data; // Return the response data for potential further processing
-
-    } 
-    
-    
-    
-    catch (error) {
+        return data; 
+    } catch (error) {
         console.error('Sign up error:', error);
-        throw error; // Propagate the error for handling in the UI or calling code
+        throw error; 
     }
-    
-
 }
 
 export function logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
 }
 
 export function getCurrentUser() {
     try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken'); // Ensure you are retrieving the access token
         if (!token) {
-            console.log(token,'aaaaaaaaaaaaaaaaaaaaaaa')
+            console.log('No token found in localStorage');
             return null;
-            
         }
+        console.log('Token from localStorage:', token); // Log the token
+
+        // Decode and return the token payload
         return jwtDecode(token);
-        
     } catch (error) {
         console.error('Error decoding token:', error);
-        console.log(error,'aaaaaaaaaaaaaaaaaaaaaaa')
-
         return null;
     }
-    
 }
 
 export function getJwt() {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaa')
-
-    return localStorage.getItem('token');
+    return localStorage.getItem('accessToken');
 }

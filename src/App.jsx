@@ -1,12 +1,11 @@
 
 
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/HomePage';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import ProductAdd from './components/ProductAdd';
-import ProtectedRoute from './components/ProtectedRoute';
-import Dashboard from './components/Dashboard';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import ProductAdd from './components/Admin/ProductAdd';
+import ProtectedRoute from './pages/ProtectedRoute';
+import Dashboard from './components/Admin/Dashboard';
 
 
 function App() {
@@ -15,10 +14,12 @@ function App() {
                 
                    
                     <Routes>
-                        <Route path="/" element={<Dashboard />}>
-                        <Route path="/signin" element={<SignIn />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route path="/add-product" element={<ProtectedRoute element={<ProductAdd />} />} />
+                        <Route path="/" element={<SignIn/>}>
+                        <Route path="/signup" element={<SignUp navigate={Navigate} />} /> {/* Ensure navigate is passed */}
+                        {/*<Route path="/add-product" element={<ProtectedRoute element={<ProductAdd />} />} />*/}
+                        <Route path="/addproduct" element={<ProductAdd />} />
+                        <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
+
                         {/* Add other routes here */}
                         </Route>
                     </Routes>

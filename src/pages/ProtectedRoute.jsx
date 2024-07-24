@@ -1,17 +1,16 @@
-
 import PropTypes from 'prop-types';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getCurrentUser } from '../services/authService';
 
-function ProtectedRoute({ element }) {
+function ProtectedRoute({ element: Element }) {
     const user = getCurrentUser();
     const location = useLocation();
 
     if (!user) {
-        return <Navigate to="/signin" state={{ from: location }} replace />;
+        return <Navigate to="/SignIn" state={{ from: location }} replace />;
     }
 
-    return element;
+    return <Element />;
 }
 
 ProtectedRoute.propTypes = {
