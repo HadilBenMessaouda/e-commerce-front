@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import axios from '../AxiosConfig'; // Import the configured Axios instance
+import axios from 'axios'; // Import the configured Axios instance
 import { useMutation } from 'react-query';
 import NavAdmin from './NavAdmin';
+
 
 const ProductAdd = () => {
     const [name, setName] = useState('');

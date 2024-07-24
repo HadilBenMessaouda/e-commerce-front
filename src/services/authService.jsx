@@ -15,7 +15,13 @@ export async function signIn(username, password) {
             throw new Error('Failed to sign in');
         }
         const data = await response.json();
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('roles', JSON.stringify(data.roles));
+
     } catch (error) {
         console.error('Sign in error:', error);
         throw error; // Propagate the error for handling in the UI or calling code
@@ -79,6 +85,6 @@ export function getCurrentUser() {
 
 export function getJwt() {
     console.log('aaaaaaaaaaaaaaaaaaaaaaa')
-
     return localStorage.getItem('token');
 }
+

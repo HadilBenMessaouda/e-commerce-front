@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { signUp } from '../services/authService';
-import PropTypes from 'prop-types';
 import image from '../assets/image.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -132,8 +131,8 @@ function Signup() {
     );
 }
 
-Signup.propTypes = {
-    navigate: PropTypes.object.isRequired,
-};
+// Signup.propTypes = {
+//     navigate: PropTypes.object.isRequired,
+// };
 
 export default Signup;

@@ -1,0 +1,118 @@
+body {  
+  font-family: Arial, sans-serif;  
+  background-color: #f4f4f4;  
+  margin: 0;  
+  padding: 20px;  
+}  
+
+h1 {  
+  text-align: center;  
+  color: #333;  
+}  
+
+.table-container {  
+  background: #fff;  
+  border-radius: 8px;  
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+  max-width: 1200px;  
+  margin: auto;  
+  padding: 20px;  
+  width: 100%; /* Ensure container is full width within max-width */  
+}  
+.table-image {  
+  width: 100px; /* Set a fixed width */  
+  height: auto; /* Maintain aspect ratio */  
+  border-radius: 5px; /* Rounded corners (optional) */  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow (optional) */  
+  margin: auto; /* Centering the image if needed */  
+}  
+table {  
+  width: 100%;  
+  border-collapse: collapse;  
+  margin-bottom: 20px;  
+}  
+
+th, td {  
+  padding: 12px;  
+  text-align: left;  
+}  
+
+th { 
+  background-color: #007BFF;  
+  color: white;  
+}  
+
+tr:nth-child(even) {  
+  background-color: #f2f2f2;  
+}  
+
+tr:hover {  
+  background-color: #e9ecef;  
+}  
+
+.sorting-buttons {  
+  display: flex;  
+  justify-content: center;  
+  margin-bottom: 10px;  
+}  
+
+.sorting-buttons button {  
+  margin: 0 5px;  
+  padding: 8px 12px;  
+  background-color: #007BFF;  
+  color: white;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;  
+}  
+
+.sorting-buttons button:hover {  
+  background-color: #0056b3;  
+}  
+
+.pagination {  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  margin: 20px 0;  
+}  
+
+.pagination button {  
+  margin: 0 10px;  
+  padding: 8px 12px;  
+  background-color: #007BFF;  
+  color: white;  
+  border: none;  
+  border-radius: 5px;  
+  cursor: pointer;  
+}  
+
+.pagination button:disabled {  
+  background-color: #c0c0c0;  
+  cursor: not-allowed;  
+}  
+
+.pagination span {  
+  margin: 0 10px;  
+  font-weight: bold;  
+}  
+
+.page-size-selector {  
+  text-align: center;  
+}  
+
+.page-size-selector label {  
+  font-weight: bold;  
+  margin-right: 10px;  
+}  
+
+.page-size-selector select {  
+  padding: 5px;  
+  border-radius: 5px;  
+  border: 1px solid #ccc;  
+}  
+
+.pagination button.active {  
+  background-color: #0056b3; /* Active button color */  
+  color: white;  
+}

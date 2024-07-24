@@ -13,7 +13,8 @@ export default function SignIn() {
     const mutation = useMutation({
         mutationFn: ({ username, password }) => signIn(username, password),
         onSuccess: () => {
-            navigate('/');
+         
+            navigate('/list');
         },
         onError: () => {
             setError('Invalid email or password');
