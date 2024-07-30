@@ -4,6 +4,8 @@ import SearchComponent from './SearchComponent';
 import CategoryFilter from './CategoryFilter';
 import './SearchStyles.css'; // Import the CSS file
 import ProductByCategory from './ProductByCategory';
+import ProductPage from '../../pages/ProductPage';
+import FilteredProductList from './FilteredProductList';
 
 
 const StyledComponent = () => {
@@ -26,12 +28,14 @@ const StyledComponent = () => {
 
     return (
         <div className="styled-component">
+            {/*<ProductPage />
             <PriceRangeSlider onPriceChange={handlePriceChange} />
             <SearchComponent onSearch={handleSearch} />
             <div className="category-product-manager">
             <CategoryFilter onCategorySelect={handleCategorySelect} />
             {selectedCategory && <ProductByCategory categoryId={selectedCategory} />}
-        </div>
+        </div>*/}
+        <FilteredProductList/>
 
         </div>
     );

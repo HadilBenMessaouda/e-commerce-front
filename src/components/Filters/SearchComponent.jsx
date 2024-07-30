@@ -1,4 +1,4 @@
-// src/components/SearchComponent.jsx
+/*// src/components/SearchComponent.jsx
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from '../../Api'; // Import your fetch function
@@ -40,4 +40,28 @@ const SearchComponent = () => {
     );
 };
 
+export default SearchComponent;*/
+// src/components/SearchComponent.jsx
+import React from 'react';
+import './SearchStyles.css'; // Import the CSS file
+
+const SearchComponent = ({ setSearchTerm }) => {
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    return (
+        <div className="search-component">
+            <h3>Search Products</h3>
+            <input
+                type="text"
+                placeholder="Search"
+                onChange={handleSearchChange}
+                className="search-input"
+            />
+        </div>
+    );
+};
+
 export default SearchComponent;
+

@@ -1,5 +1,5 @@
 // src/components/PriceRangeSlider.jsx
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../AxiosConfig'; // Import your axios instance
 import './SearchStyles.css'; // Import the CSS file
 
@@ -79,5 +79,49 @@ const PriceRangeSlider = () => {
     );
 };
 
+export default PriceRangeSlider;*/
+ // src/components/PriceRangeSlider.jsx
+import React from 'react';
+import './SearchStyles.css'; // Import the CSS file
+
+const PriceRangeSlider = ({ minPrice, maxPrice, setMinPrice, setMaxPrice }) => {
+    const handleMinPriceChange = (e) => {
+        const value = Math.min(Number(e.target.value), maxPrice - 1);
+        setMinPrice(value);
+    };
+
+    const handleMaxPriceChange = (e) => {
+        const value = Math.max(Number(e.target.value), minPrice + 1);
+        setMaxPrice(value);
+    };
+
+    return (
+        <div className="price-range-slider">
+            <h3>Price Range</h3>
+            <div className="slider-container">
+                <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value={minPrice}
+                    onChange={handleMinPriceChange}
+                    className="slider"
+                />
+                <input
+                    type="range"
+                    min="0"
+                    max="1000"
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
+                    className="slider"
+                />
+                <div className="price-values">
+                    <span>Min: ${minPrice}</span>
+                    <span>Max: ${maxPrice}</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export default PriceRangeSlider;
- 

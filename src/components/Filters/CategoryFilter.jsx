@@ -1,28 +1,28 @@
-// src/components/CategoryFilter.jsx
-
 import React, { useState, useEffect } from 'react';
 import { fetchCategories } from '../../Api'; // Import your fetch function
 import './SearchStyles.css'; // Import the CSS file
 
-const CategoryFilter = ({ onCategorySelect }) => {
+const CategoryFilter = ({ setSelectedCategory }) => {
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
     useEffect(() => {
-        fetchCategories()
-            .then(data => {
+        const loadCategories = async () => {
+            try {
+                const data = await fetchCategories();
                 console.log('Fetched Categories:', data); // Log fetched categories
                 setCategories(data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        loadCategories();
     }, []);
 
-    useEffect(() => {
-        if (selectedCategory) {
-            console.log('Selected Category:', selectedCategory); // Log selected category
-            onCategorySelect(selectedCategory); // Trigger filter by selected category
-        }
-    }, [selectedCategory, onCategorySelect]);
+    const handleCategoryClick = (categoryId) => {
+        console.log('Category Clicked:', categoryId); // Log category click
+        setSelectedCategory(categoryId);
+    };
 
     return (
         <div className="category-filter">
@@ -31,8 +31,8 @@ const CategoryFilter = ({ onCategorySelect }) => {
                 {categories.map(category => (
                     <li
                         key={category.category_id}
-                        onClick={() => setSelectedCategory(category.category_id)}
-                        className={selectedCategory === category.category_id ? 'selected' : ''}
+                        onClick={() => handleCategoryClick(category.category_id)}
+                        className="category-item"
                     >
                         {category.name}
                     </li>

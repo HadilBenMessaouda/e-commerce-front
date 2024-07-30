@@ -1,60 +1,72 @@
-// src/components/FilteredProductList.jsx
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../AxiosConfig';
-import PriceRangeSlider from './PriceRangeSlider';
-import ProductByCategory from './ProductByCategory';
-import SearchComponent from './SearchComponent';
-import './SearchStyles.css';
+import axiosInstance from '../../AxiosConfig'; // Import your axios instance
+import PriceRangeSlider from './PriceRangeSlider'; // Adjust path as needed
+import SearchComponent from './SearchComponent'; // Adjust path as needed
+import CategoryFilter from './CategoryFilter'; // Adjust path as needed
+import './SearchStyles.css'; // Import the CSS file
 
 const FilteredProductList = () => {
-    const [products, setProducts] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(1000);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState(null);
-
-    const fetchFilteredProducts = async () => {
-        try {
-            const response = await axiosInstance.get('/api/v1/products/filter', {
-                params: {
-                    minPrice,
-                    maxPrice,
-                    searchTerm,
-                    categoryId: selectedCategory
-                }
-            });
-
-            if (response.status === 200) {
-                setProducts(response.data);
-            } else {
-                console.error(`Unexpected response status: ${response.status}`);
-            }
-        } catch (error) {
-            console.error('Error fetching filtered products:', error.response?.data || error.message);
-        }
-    };
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     useEffect(() => {
-        fetchFilteredProducts();
-    }, [minPrice, maxPrice, searchTerm, selectedCategory]);
+        const fetchAllProducts = async () => {
+            try {
+                const response = await axiosInstance.get('/api/v1/products');
+                setAllProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching all products:', error.message);
+            }
+        };
+
+        fetchAllProducts();
+    }, []);
+
+    useEffect(() => {
+        const applyFilters = () => {
+            let results = allProducts;
+
+            if (searchTerm) {
+                results = results.filter(product =>
+                    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+
+            if (selectedCategory) {
+                results = results.filter(product =>
+                    product.category_id === selectedCategory
+                );
+            }
+
+            results = results.filter(product =>
+                product.price >= minPrice && product.price <= maxPrice
+            );
+
+            setFilteredProducts(results);
+        };
+
+        applyFilters();
+    }, [minPrice, maxPrice, searchTerm, selectedCategory, allProducts]);
 
     return (
         <div className="filtered-product-list">
-            <h2>Filtered Product List</h2>
-            <PriceRangeSlider
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                setMinPrice={setMinPrice}
-                setMaxPrice={setMaxPrice}
-            />
-            <ProductByCategory categoryId={selectedCategory} setSelectedCategory={setSelectedCategory} />
-            <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <PriceRangeSlider minPrice={minPrice} maxPrice={maxPrice} setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} />
+            <SearchComponent setSearchTerm={setSearchTerm} />
+            <CategoryFilter setSelectedCategory={setSelectedCategory} />
+
             <div className="product-list">
-                {products.length > 0 ? (
+                <h3>Products</h3>
+                {filteredProducts.length > 0 ? (
                     <ul>
-                        {products.map(product => (
-                            <li key={product.id}>
-                                <strong>{product.name}</strong> - {product.description} - ${product.price}
+                        {filteredProducts.map(product => (
+                            <li key={product.product_id}>
+                                <img src={product.imageURL} alt={product.name} width="100" />
+                                <div>{product.name}</div>
+                                <div>${product.price}</div>
                             </li>
                         ))}
                     </ul>
