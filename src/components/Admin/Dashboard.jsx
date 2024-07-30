@@ -3,8 +3,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import image from '../../assets/image.png';
 import ProductAdd from './ProductAdd';
 import ProductsList from '../products/ProductsList';
+import Products from '../User/Products';
+
 import StyledComponent from '../Filters/StyledComponent';
-import FilteredProductList from '../Filters/FilteredProductList';
+import { Navigate } from 'react-router-dom';
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
@@ -12,11 +14,11 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Manage Products', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: '', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Reports', href: '#', current: false },
+  { name: 'Home', href: '#', current: false },
+  { name: 'Products', href: '#', current: true },
+  { name: 'Card', href: '#', current: false },
+  //{ name: '', href: '#', current: false },
+  { name: 'Order', href: '#', current: false },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -29,6 +31,17 @@ function classNames(...classes) {
 }
 
 export default function Dashboard() {
+  const token = localStorage.getItem('accessToken');
+  const role = localStorage.getItem('roles');
+
+
+  if (!token) {
+      throw new Error('No token found');
+  }
+  else if(role !== "ROLE_USER"){
+      throw new Error('Unauthorized');
+
+  }
   return (
     <>
       {
@@ -180,10 +193,11 @@ export default function Dashboard() {
         </header>
         <main>
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-       <StyledComponent/>
-    <ProductAdd/>
-    <ProductsList/>
+       {/* <StyledComponent/> */}
+    {/* <ProductAdd/> */}
+    {/* <ProductsList/> */}
     {/* Other content */}
+    <Products/>
   </div>        </main>
       </div>
     </>
