@@ -22,7 +22,7 @@ export const fetchProducts = async (searchTerm) => {
 
 export const fetchProductsByCategory = async (category_id) => {
     try {
-        const response = await axiosInstance.get(`/api/v1/products/category/${category_id}`);
+        const response = await axiosInstance.get(`/api/v1/products/category/id/${category_id}`);
 
         console.log('Fetch Products by Category Response:', response); // Log the full response
         if (response.status === 200) {
@@ -39,7 +39,7 @@ export const fetchProductsByCategory = async (category_id) => {
 
 export const fetchCategories = async () => {
     try {
-        const response = await axiosInstance.get('/api/v1/categories');
+        const response = await axiosInstance.get('/api/v1/category/list');
         if (response.status === 200) {
             return Array.isArray(response.data) ? response.data : [];
         } else {

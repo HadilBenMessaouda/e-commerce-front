@@ -1,13 +1,14 @@
 
 
 import { Routes, Route } from 'react-router-dom';
-import Home from './components/HomePage';
-import SignIn from './components/SignIn';
-import Signup from './components/SignUp';
-import ProductAdd from './components/ProductAdd';
-import ProtectedRoute from './components/ProtectedRoute';
-import Dashboard from './components/Dashboard';
+
 import ProductList from './components/ProductList';
+import SignIn from './pages/SignIn';
+import Dashboard from './components/Admin/Dashboard';
+import Signup from './pages/SignUp';
+import ProtectedRoute from './pages/ProtectedRoute';
+import ProductAdd from './components/Admin/ProductAdd';
+import Products from './components/User/Products';
 
 
 
@@ -18,9 +19,10 @@ function App() {
   
 
     return (
-                
                    
                     <Routes>
+                        <Route path="/products" element={<Products />}/>
+
                         <Route path="/" element={<SignIn />}/>
                         {/* <Route path="/signin" element={<SignIn />} /> */}
                         <Route path="/dash" element={<Dashboard />} />
